@@ -61,7 +61,15 @@ function routes(Book) {
         });
       })
 
-      .get((req, res) => res.json(req.book))
+      .get((req, res) => {
+          const returnBook = req.book.toJSON();
+          const genre = req.book.genre.replace(' ', '%20');
+
+          returnBook.links = {};
+          returnBook.links.FilterByThisGenre = `http://${req.headers.host}/api/book/?genre=${req.book.genre}`;
+
+          res.json(returnBook);
+      })
 
       .delete((req, res) => {
         req.book.remove((err) => {

@@ -3,8 +3,9 @@ function booksController(Book) {
         const book = new Book(req.body);
 
         book.save();
+        res.status(201);
 
-        return res.status(201).json(book);
+        return res.json(book);
     }
 
     function get(req, res) {
